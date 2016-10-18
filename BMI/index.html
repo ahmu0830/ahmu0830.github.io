@@ -44,6 +44,16 @@
                     $('#result_bmi').val(formatFloat(bmi, 3));
                     $('#height').val('');
                     $('#weight').val('');
+                    if(bmi > 14.5 && bmi < 24){
+                        console.log('正常');
+                        $('#result_bmi').css('background-color', '#53FF53');
+                    }else if (bmi > 24 ){
+                        console.log('過重');
+                        $('#result_bmi').css('background-color', '#FF5151');
+                    }else{
+                        console.log('過瘦');
+                        $('#result_bmi').css('background-color', '#FF5151');
+                    }
                 }
 
             })
@@ -60,6 +70,16 @@
                     var fat = 1.2 * bmi + 0.23 * age - 5.4 - 10.8 * sex;
                     $('#result_fat').val(formatFloat(fat, 3));
                     $('#age').val('');
+                    if(sex == 1 && fat > 30){
+                        console.log('男生肥胖');
+                        $('#result_fat').css('background-color', '#FF5151');
+                    }else if (sex == 0 && fat >25 ){
+                        console.log('女生肥胖');
+                        $('#result_fat').css('background-color', '#FF5151');
+                    }else{
+                        console.log('正常');
+                        $('#result_fat').css('background-color', '#53FF53');
+                    }
                 }
 
             })
