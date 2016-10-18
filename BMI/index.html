@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <!-- 行動裝置支援 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>BMI&體脂率計算器</title>
+        <link rel="stylesheet" href="../library/css/bootstrap.css">
+        <script src="../library/js/jquery-3.1.1.min.js"></script>
+        <script src="../library/js/bootstrap.js"></script>
+    <style>
+        .my-container{
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .box{
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 20px;
+        }
+        .box-c{
+            padding-top: 44.5px;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $('#calculate_bmi').click(function () {
+                var h = $('#height').val()/100;
+                var w = $('#weight').val();
+
+                if(h == ''){
+                    alert('請輸入身高(cm)');
+                }else if (w == ''){
+                    alert('請輸入體重(kg)')
+                }else if(h < 1){
+                    alert('身高請輸入公分');
+                }else{
+                    var bmi = w / ( h * h );
+                    $('#result_bmi').val(formatFloat(bmi, 3));
+                    $('#height').val('');
+                    $('#weight').val('');
+                }
+
+            })
+
+            $('#calculate_fat').click(function () {
+                var bmi = $('#result_bmi').val();
+                var age = $('#age').val();
+                var sex = $('#sex').val();
+                if(bmi == ''){
+                    alert('請先計算BMI');
+                }else if (age > 200){
+                    alert('挖賽!人瑞4ni?');
+                }else{
+                    var fat = 1.2 * bmi + 0.23 * age - 5.4 - 10.8 * sex;
+                    $('#result_fat').val(formatFloat(fat, 3));
+                    $('#age').val('');
+                }
+
+            })
+
+        });
+
+        function formatFloat(num, pos)
+        {
+            var size = Math.pow(10, pos);
+            return Math.round(num * size) / size;
+        }
+    </script>
+</head>
+<body>
+    <div class="container-fluid my-container">
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">BMI&體脂率計算器</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">About</a></li>
+
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div class="row">
+
+            <div class="col-md-4 box">
+                <div class="form-group">
+                    <label for="height">輸入身高(cm)</label>
+                    <input type="number" class="form-control" id="height" placeholder="身高">
+                </div>
+            </div>
+            <div class="col-md-4 box">
+                <div class="form-group">
+                    <label for="weight">輸入體重(kg)</label>
+                    <input type="number" class="form-control" id="weight" placeholder="體重">
+                </div>
+            </div>
+            <div class="col-md-1 box-c">
+                <div class="form-group">
+                    <button type="button" class="btn btn-default btn-block" id="calculate_bmi">計算BMI</button>
+                </div>
+            </div>
+            <div class="col-md-3 box">
+                <div class="form-group">
+                    <label for="result_bmi">你的BMI</label>
+                    <input type="number" class="form-control" id="result_bmi" readonly="true">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-4 box">
+                <div class="form-group">
+                    <label for="sex">選擇性別</label>
+                    <select class="form-control" id="sex"  >
+                        <option value="1">男生</option>
+                        <option value="0">女生</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 box">
+                <div class="form-group">
+                    <label for="weight">輸入年齡</label>
+                    <input type="number" class="form-control" id="age" placeholder="年齡">
+                </div>
+            </div>
+            <div class="col-md-1 box-c">
+                <div class="form-group">
+                    <button type="button" class="btn btn-default btn-block" id="calculate_fat">計算體脂率</button>
+                </div>
+            </div>
+            <div class="col-md-3 box">
+                <div class="form-group">
+                    <label for="result_fat">你的體脂率</label>
+                    <input type="number" class="form-control" id="result_fat" readonly="true">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
